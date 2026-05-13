@@ -6,19 +6,19 @@ import { useRef, useState } from "react"
 
 const venueImages = [
   {
-    src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80",
+    src: "https://i9.photo.2gis.com/images/branch/0/30258560170270495_226a.jpg",
     alt: "Той залы"
   },
   {
-    src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80",
+    src: "https://avatars.mds.yandex.net/get-altay/13206609/2a0000018f9d17c0fec80fb361c59de6a981/orig",
     alt: "Дастархан"
   },
   {
-    src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=800&q=80",
+    src: "https://i9.photo.2gis.com/images/branch/0/30258560170270490_401a_656x340.jpg",
     alt: "Сәндеу"
   },
   {
-    src: "https://images.unsplash.com/photo-1507504031003-b417f9e5f3d1?w=800&q=80",
+    src: "https://i9.photo.2gis.com/images/branch/0/30258560170270441_5915_656x340.jpg",
     alt: "Интерьер"
   },
 ]
