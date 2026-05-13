@@ -41,11 +41,11 @@ export default function LocationSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1])
 
   const handleOpenMap = () => {
-    // МЕКЕН ЖАЙ КООРДИНАТАЛАРЫН ӨЗГЕРТІҢІЗ
-    const address = "Ақтөбе, Қабанбай батыр көшесі, Grand Hall мейрамханасы"
-    const encodedAddress = encodeURIComponent(address)
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
-  }
+  window.open(
+    "https://go.2gis.com/p7Mep",
+    "_blank"
+  )
+}
 
   return (
     <section ref={containerRef} className="relative py-1 px-4 bg-gradient-to-b from-white via-secondary/20 to-white overflow-hidden">
