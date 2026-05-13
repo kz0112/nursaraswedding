@@ -28,7 +28,7 @@ export default function TimelineSection() {
   return (
     <section 
       ref={containerRef}
-      className="relative py-20 px-4 bg-white overflow-hidden"
+      className="relative py-7 px-4 bg-white overflow-hidden"
     >
       {/* Decorative background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
