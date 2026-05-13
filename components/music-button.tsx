@@ -35,19 +35,8 @@ export default function MusicButton({ isMuted, onToggle }: MusicButtonProps) {
           className="fixed bottom-6 right-6 z-50 group"
           aria-label={isMuted ? "Музыканы қосу" : "Музыканы өшіру"}
         >
-          {/* Outer glow ring */}
-          <motion.div
-            animate={!isMuted ? {
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.1, 0.3],
-            } : {}}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute inset-0 rounded-full bg-gold/30 blur-md"
-          />
+          {/* Outer glow ring - static */}
+          <div className={`absolute inset-0 rounded-full blur-md transition-opacity duration-300 ${!isMuted ? 'bg-gold/30 opacity-100' : 'bg-gold/20 opacity-50'}`} />
 
           {/* Main button container */}
           <div className="relative w-16 h-16 rounded-full overflow-hidden">
@@ -109,29 +98,21 @@ export default function MusicButton({ isMuted, onToggle }: MusicButtonProps) {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.5 }}
                     transition={{ duration: 0.3 }}
-                    className="relative flex items-center gap-0.5"
+                    className="relative"
                   >
-                    {/* Animated sound bars - Kazakh ornament style */}
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          height: [8, 20, 12, 24, 8],
-                          opacity: [0.6, 1, 0.8, 1, 0.6],
-                        }}
-                        transition={{
-                          duration: 0.8,
-                          repeat: Infinity,
-                          delay: i * 0.1,
-                          ease: "easeInOut"
-                        }}
-                        className="w-1.5 rounded-full"
-                        style={{
-                          background: `linear-gradient(to top, #C9A962, #E8D5A8)`,
-                          boxShadow: '0 0 8px rgba(201, 169, 98, 0.5)',
-                        }}
-                      />
-                    ))}
+                    {/* Static speaker icon with sound waves */}
+                    <svg 
+                      className="w-7 h-7 text-gold-light drop-shadow-lg"
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5"
+                    >
+                      <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" fillOpacity="0.3" />
+                      <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" strokeLinecap="round" />
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" strokeLinecap="round" />
+                    </svg>
                   </motion.div>
                 )}
               </AnimatePresence>
