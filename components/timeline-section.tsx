@@ -94,73 +94,61 @@ export default function TimelineSection() {
             </linearGradient>
           </defs>
           
-          {/* Start dot */}
-          <motion.circle
-            cx="100"
-            cy="10"
-            r="6"
-            fill="#1a1a1a"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          />
+         
         </svg>
 
         {/* Animated heart that follows scroll */}
-        <motion.div
-          style={{ 
-            top: useTransform(heartProgress, [0, 1], ["15%", "75%"]),
-            left: useTransform(heartProgress, [0, 0.3, 0.6, 1], ["50%", "35%", "65%", "50%"]),
-          }}
-          className="absolute -translate-x-1/2 -translate-y-1/2 z-20"
-        >
-          <motion.div
-            animate={{ 
-              scale: [1, 1.15, 1],
-            }}
-            transition={{ 
-              duration: 1.2, 
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="relative"
-          >
-            {/* Heart glow */}
-            <motion.div
-              animate={{
-                boxShadow: [
-                  "0 0 20px rgba(155, 60, 60, 0.3)",
-                  "0 0 40px rgba(155, 60, 60, 0.5)",
-                  "0 0 20px rgba(155, 60, 60, 0.3)",
-                ]
-              }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="absolute inset-0 rounded-full"
-            />
-            
-            {/* Heart SVG */}
-            <svg 
-              width="50" 
-              height="45" 
-              viewBox="0 0 50 45" 
-              className="drop-shadow-lg"
-            >
-              <path
-                d="M25 40 C15 30, 5 20, 5 12 C5 5, 12 0, 18 0 C22 0, 25 3, 25 5 C25 3, 28 0, 32 0 C38 0, 45 5, 45 12 C45 20, 35 30, 25 40"
-                fill="#8b3a3a"
-              />
-              {/* Heart highlight */}
-              <path
-                d="M18 8 C16 8, 12 10, 12 14"
-                stroke="rgba(255,255,255,0.3)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-              />
-            </svg>
-          </motion.div>
-        </motion.div>
+<motion.div
+  style={{ 
+    top: useTransform(heartProgress, [0, 1], ["15%", "75%"]),
+    left: useTransform(
+  heartProgress,
+  [0, 0.25, 0.5, 0.75, 1],
+  ["50%", "63%", "50%", "37%", "50%"]
+),
+  }}
+  className="absolute -translate-x-1/2 -translate-y-1/2 z-20"
+>
+  <motion.div
+    animate={{ 
+      scale: [1, 1.04, 1],
+    }}
+    transition={{ 
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }}
+    className="relative"
+  >
+    {/* Elegant Heart */}
+    <svg 
+      width="52"
+      height="52"
+      viewBox="0 0 64 64"
+      fill="none"
+    >
+      <path
+        d="
+          M32 56
+          C32 56 10 40 10 22
+          C10 12 17 6 25 6
+          C30 6 32 10 32 10
+          C32 10 34 6 39 6
+          C47 6 54 12 54 22
+          C54 40 32 56 32 56
+        "
+        fill="#9c3944"
+      />
+
+      <path
+        d="M23 15 C20 16, 18 19, 18 23"
+        stroke="rgba(255,255,255,0.28)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  </motion.div>
+</motion.div>
 
        {/* Timeline events */}
 {events.map((event, index) => {
