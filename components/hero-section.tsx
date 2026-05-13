@@ -2,22 +2,7 @@
 
 import { motion } from "framer-motion"
 
-// Kazakh ornament SVG component
-function KazakhOrnament({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 200 50" fill="currentColor">
-      <path d="M0,25 Q25,0 50,25 T100,25 T150,25 T200,25" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-      <path d="M20,25 L30,15 L40,25 L30,35 Z" />
-      <path d="M60,25 L70,15 L80,25 L70,35 Z" />
-      <path d="M100,25 L110,15 L120,25 L110,35 Z" />
-      <path d="M140,25 L150,15 L160,25 L150,35 Z" />
-      <path d="M180,25 L190,15 L200,25 L190,35 Z" />
-      <circle cx="50" cy="25" r="4" />
-      <circle cx="100" cy="25" r="5" />
-      <circle cx="150" cy="25" r="4" />
-    </svg>
-  )
-}
+
 
 // Floating particles component
 function FloatingParticles() {
@@ -74,7 +59,7 @@ export default function HeroSection() {
         transition={{ duration: 1.5, delay: 0.5 }}
         className="absolute top-6 left-1/2 -translate-x-1/2 z-20"
       >
-        <KazakhOrnament className="w-40 md:w-56 text-gold-light/50" />
+        
       </motion.div>
 
       {/* Date in corner */}
