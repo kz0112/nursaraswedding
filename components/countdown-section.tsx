@@ -11,57 +11,71 @@ interface TimeLeft {
   seconds: number
 }
 
-// Number flip animation component
 function FlipNumber({ value, label }: { value: number; label: string }) {
   return (
-    <motion.div 
+    <motion.div
       className="text-center"
-      initial={{ opacity: 0, scale: 0.5 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7 }}
     >
-      <div className="relative">
-        {/* Glow effect */}
-        <motion.div
-          animate={{
-            boxShadow: [
-              "0 0 20px rgba(201, 169, 98, 0.2)",
-              "0 0 40px rgba(201, 169, 98, 0.4)",
-              "0 0 20px rgba(201, 169, 98, 0.2)",
-            ]
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute inset-0 rounded-xl"
-        />
-        
-        {/* Number container */}
-        <motion.div
-          key={value}
-          initial={{ rotateX: -90, opacity: 0 }}
-          animate={{ rotateX: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 md:px-4 md:py-3 border border-white/20"
-        >
-          <span 
-            className="text-3xl md:text-5xl font-light text-white"
-            style={{ fontFamily: 'var(--font-serif)' }}
-          >
-            {value.toString().padStart(2, '0')}
-          </span>
-        </motion.div>
-      </div>
-      
-      <motion.div 
+      {/* transparent glass number */}
+      <motion.div
+        key={value}
         initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="text-[10px] md:text-xs text-white/80 tracking-wider mt-2" 
-        style={{ fontFamily: 'var(--font-serif)' }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="
+          relative
+          min-w-[56px]
+md:min-w-[70px]
+px-2
+py-2.5
+rounded-[22px]
+
+          bg-white/[0.04]
+          backdrop-blur-[2px]
+
+          border
+          border-white/10
+
+          shadow-[0_4px_25px_rgba(0,0,0,0.12)]
+        "
+      >
+        {/* soft inner glow */}
+        <div className="absolute inset-0 rounded-[28px] bg-white/[0.02]" />
+
+        <span
+          className="
+            relative
+            text-4xl
+            md:text-6xl
+            font-extralight
+            text-white
+          "
+          style={{
+            fontFamily: "var(--font-serif)",
+            textShadow: "0 2px 12px rgba(0,0,0,0.18)",
+          }}
+        >
+          {value.toString().padStart(2, "0")}
+        </span>
+      </motion.div>
+
+      {/* label */}
+      <div
+        className="
+          text-[10px]
+          md:text-xs
+          tracking-[0.25em]
+          text-white/75
+          mt-3
+        "
+        style={{ fontFamily: "var(--font-serif)" }}
       >
         {label}
-      </motion.div>
+      </div>
     </motion.div>
   )
 }
@@ -118,19 +132,17 @@ export default function CountdownSection() {
 
   return (
     <section ref={containerRef} className="relative py-24 px-4 overflow-hidden">
-      {/* Background Image with parallax */}
-      <motion.div 
-        style={{ y: backgroundY }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110"
-      >
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://i.ibb.co.com/DDvkf0Vj/2026-05-13-002206.png')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-black/50" />
-      </motion.div>
+     {/* Background Image */}
+<div className="absolute inset-0 bg-cover bg-center bg-no-repeat">
+  <div 
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={{
+      backgroundImage: `url('https://i.ibb.co.com/DDvkf0Vj/2026-05-13-002206.png')`,
+    }}
+  />
+
+  <div className="absolute inset-0 bg-black/50" />
+</div>
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -169,7 +181,7 @@ export default function CountdownSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-12"
         >
           <img
             src="https://grizly.club/uploads/posts/2022-12/1671768734_grizly-club-p-kazakhskii-zheltii-ornament-26.png"
