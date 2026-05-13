@@ -5,6 +5,7 @@ import HeroSection from "@/components/hero-section"
 import InvitationSection from "@/components/invitation-section"
 import DateSection from "@/components/date-section"
 import VenueSection from "@/components/venue-section"
+import TimelineSection from "@/components/timeline-section"
 import LocationSection from "@/components/location-section"
 import ParentsSection from "@/components/parents-section"
 import CountdownSection from "@/components/countdown-section"
@@ -69,6 +70,7 @@ export default function Home() {
       <InvitationSection />
       <DateSection />
       <VenueSection />
+      <TimelineSection />
       <LocationSection />
       <ParentsSection />
       <CountdownSection />
