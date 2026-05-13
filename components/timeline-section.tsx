@@ -10,7 +10,7 @@ interface TimelineEvent {
 }
 
 const events: TimelineEvent[] = [
-  { time: "18:00", title: "ҚОНАҚТАРДЫҢ\nЖИНАЛУЫ", position: "right" },
+  { time: "18:00", title: "ҚОНАҚТАР\nЖИНАЛУЫ", position: "right" },
   { time: "19:00", title: "ТОЙДЫҢ\nБАСТАЛУЫ", position: "left" },
   { time: "23:00", title: "ТОЙДЫҢ\nАЯҚТАЛУЫ", position: "right" },
 ]
@@ -42,12 +42,7 @@ export default function TimelineSection() {
 
       {/* Title */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-16"
-      >
+        
         <h2 
           className="text-4xl md:text-5xl text-primary mb-4"
           style={{ fontFamily: 'var(--font-script)' }}
@@ -72,19 +67,17 @@ export default function TimelineSection() {
         >
           {/* Main curved path */}
           <motion.path
-            d="M100 0 
-               C100 50, 100 80, 100 100
-               C100 150, 60 170, 60 200
-               C60 230, 140 250, 140 280
-               C140 310, 100 330, 100 360
-               C100 400, 100 450, 100 500"
-            stroke="url(#pathGradient)"
-            strokeWidth="2"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, ease: "easeOut" }}
+           d="
+  M100 0
+  C140 70, 140 130, 100 200
+  C60 270, 60 330, 100 400
+  C140 470, 140 530, 100 600
+"
+    stroke="#3a3a3a"
+    strokeWidth="0.7"
+    strokeLinecap="round"
+    opacity="0.85"
+    fill="none"
           />
           
           {/* Gradient definition */}
@@ -164,36 +157,46 @@ export default function TimelineSection() {
           </motion.div>
         </motion.div>
 
-        {/* Timeline events */}
-        {events.map((event, index) => {
-          const yPosition = index === 0 ? "10%" : index === 1 ? "45%" : "80%"
-          const xPosition = event.position === "left" ? "5%" : "55%"
-          const textAlign = event.position === "left" ? "text-right" : "text-left"
-          
-          return (
-            <motion.div
-              key={index}
-              initial={{ 
-                opacity: 0, 
-                x: event.position === "left" ? -50 : 50 
-              }}
-              whileInView={{ 
-                opacity: 1, 
-                x: 0 
-              }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.3 + index * 0.2,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className={`absolute ${textAlign}`}
-              style={{ 
-                top: yPosition, 
-                [event.position]: xPosition,
-                width: "40%"
-              }}
-            >
+       {/* Timeline events */}
+{events.map((event, index) => {
+  const yPosition =
+    index === 0 ? "10%" :
+    index === 1 ? "45%" :
+    "80%"
+
+  const xPosition = "8%"
+
+  const textAlign =
+    event.position === "left"
+      ? "text-left"
+      : "text-right"
+
+  return (
+    <motion.div
+      key={index}
+      initial={{ 
+        opacity: 0, 
+        x: event.position === "left" ? -50 : 50 
+      }}
+      whileInView={{ 
+        opacity: 1, 
+        x: 0 
+      }}
+      viewport={{ once: true }}
+      transition={{ 
+        duration: 0.8, 
+        delay: 0.3 + index * 0.2,
+        ease: [0.22, 1, 0.36, 1]
+      }}
+      className={`absolute ${textAlign}`}
+      style={{ 
+        top: yPosition,
+        width: "35%",
+        ...(event.position === "left"
+          ? { left: xPosition }
+          : { right: xPosition }),
+      }}
+    >
               {/* Time */}
               <motion.p
                 animate={{
