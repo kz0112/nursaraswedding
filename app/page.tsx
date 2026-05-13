@@ -1,28 +1,19 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Volume2, VolumeX } from "lucide-react"
 import HeroSection from "@/components/hero-section"
 import InvitationSection from "@/components/invitation-section"
 import DateSection from "@/components/date-section"
+import VenueSection from "@/components/venue-section"
 import LocationSection from "@/components/location-section"
 import ParentsSection from "@/components/parents-section"
 import CountdownSection from "@/components/countdown-section"
-
 import FooterSection from "@/components/footer-section"
+import MusicButton from "@/components/music-button"
 
 export default function Home() {
   const [isMuted, setIsMuted] = useState(true)
-  const [showMuteButton, setShowMuteButton] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
-
-  useEffect(() => {
-    // Show mute button after a short delay
-    const timer = setTimeout(() => {
-      setShowMuteButton(true)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [])
 
   useEffect(() => {
     if (audioRef.current) {
@@ -43,37 +34,41 @@ export default function Home() {
     }
   }
 
+  const toggleMute = () => {
+    setIsMuted(!isMuted)
+  }
+
   return (
     <main 
       className="min-h-screen bg-white overflow-x-hidden"
       onClick={handleFirstInteraction}
     >
-      {/* Background Music - ССЫЛКАНЫ ӨЗГЕРТІҢІЗ */}
+      {/* 
+        МУЗЫКА ҚОСУ НҰСҚАУЛЫҒЫ:
+        ========================
+        1. Өз өлеңіңізді public/music папкасына салыңыз (мысалы: public/music/my-song.mp3)
+        2. Төмендегі src атрибутын өзгертіңіз: src="/music/my-song.mp3"
+        
+        НЕМЕСЕ сыртқы сілтеме қолдансаңыз:
+        - src="https://example.com/your-music.mp3" түрінде жазыңыз
+        
+        ҚОЛДАУ КӨРСЕТІЛЕТІН ФОРМАТТАР: MP3, WAV, OGG, AAC
+      */}
       <audio
         ref={audioRef}
         loop
         preload="auto"
-        src="https://limewire.com/d/3Fjxj#Tqq72534MG"
+        src="/music/wedding-song.mp3"
       />
 
-      {/* Mute/Unmute Button */}
-      {showMuteButton && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation()
-            setIsMuted(!isMuted)
-          }}
-          className="fixed bottom-6 right-6 z-50 p-3 bg-primary/90 text-white rounded-full shadow-lg hover:bg-primary transition-all duration-300"
-          aria-label={isMuted ? "Музыканы қосу" : "Музыканы өшіру"}
-        >
-          {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-        </button>
-      )}
+      {/* Kazakh-styled music button */}
+      <MusicButton isMuted={isMuted} onToggle={toggleMute} />
 
       {/* Sections */}
       <HeroSection />
       <InvitationSection />
       <DateSection />
+      <VenueSection />
       <LocationSection />
       <ParentsSection />
       <CountdownSection />

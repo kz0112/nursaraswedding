@@ -1,0 +1,165 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { useInView } from "framer-motion"
+import { useRef, useState } from "react"
+
+const venueImages = [
+  {
+    src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80",
+    alt: "Той залы"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80",
+    alt: "Дастархан"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?w=800&q=80",
+    alt: "Сәндеу"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1507504031003-b417f9e5f3d1?w=800&q=80",
+    alt: "Интерьер"
+  },
+]
+
+export default function VenueSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  return (
+    <section ref={ref} className="relative py-20 px-4 bg-gradient-to-b from-white via-secondary/30 to-white overflow-hidden">
+      {/* Decorative corner ornaments */}
+      <div className="absolute top-8 left-4 w-20 h-20 opacity-20">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
+          <path
+            fill="currentColor"
+            d="M0,50 Q25,25 50,0 Q25,25 0,50 M50,0 Q75,25 100,50 Q75,25 50,0"
+          />
+          <circle cx="50" cy="50" r="8" fill="currentColor" />
+        </svg>
+      </div>
+      <div className="absolute top-8 right-4 w-20 h-20 opacity-20 scale-x-[-1]">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
+          <path
+            fill="currentColor"
+            d="M0,50 Q25,25 50,0 Q25,25 0,50 M50,0 Q75,25 100,50 Q75,25 50,0"
+          />
+          <circle cx="50" cy="50" r="8" fill="currentColor" />
+        </svg>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-md mx-auto text-center"
+      >
+        {/* Title with ornament */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-8"
+        >
+          <div className="flex justify-center mb-4">
+            <img
+              src="https://i.ibb.co.com/zh88YY2Y/i-removebg-preview-2.png"
+              alt="ornament"
+              className="w-32 opacity-60"
+            />
+          </div>
+          <h2 
+            className="text-4xl md:text-5xl text-primary"
+            style={{ fontFamily: 'var(--font-script)' }}
+          >
+            Той мекені
+          </h2>
+        </motion.div>
+
+        {/* Main image showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="relative mb-6"
+        >
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+            <motion.img
+              key={activeIndex}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              src={venueImages[activeIndex].src}
+              alt={venueImages[activeIndex].alt}
+              className="w-full h-full object-cover"
+            />
+            {/* Elegant overlay frame */}
+            <div className="absolute inset-0 border-[3px] border-gold/30 rounded-2xl pointer-events-none" />
+            <div className="absolute inset-2 border border-white/20 rounded-xl pointer-events-none" />
+          </div>
+          
+          {/* Image navigation dots */}
+          <div className="flex justify-center gap-3 mt-4">
+            {venueImages.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === activeIndex 
+                    ? "bg-gold w-6" 
+                    : "bg-gold/30 hover:bg-gold/50"
+                }`}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Thumbnail gallery */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="grid grid-cols-4 gap-2"
+        >
+          {venueImages.map((image, index) => (
+            <motion.button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              whileHover={{ scale: 1.05, y: -4 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-300 ${
+                index === activeIndex 
+                  ? "ring-2 ring-gold shadow-lg" 
+                  : "opacity-70 hover:opacity-100"
+              }`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover"
+              />
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Decorative divider */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={isInView ? { opacity: 1, scaleX: 1 } : {}}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="flex items-center justify-center gap-4 mt-10"
+        >
+          <div className="h-px w-16 bg-gold/40"></div>
+          <svg className="w-6 h-6 text-gold/60" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" />
+          </svg>
+          <div className="h-px w-16 bg-gold/40"></div>
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
