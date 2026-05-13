@@ -42,38 +42,14 @@ export default function LocationSection() {
 
   const handleOpenMap = () => {
     // МЕКЕН ЖАЙ КООРДИНАТАЛАРЫН ӨЗГЕРТІҢІЗ
-    const address = "Алматы, Қабанбай батыр көшесі, Grand Hall мейрамханасы"
+    const address = "Ақтөбе, Қабанбай батыр көшесі, Grand Hall мейрамханасы"
     const encodedAddress = encodeURIComponent(address)
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
   }
 
   return (
-    <section ref={containerRef} className="relative py-20 px-4 bg-gradient-to-b from-white via-secondary/20 to-white overflow-hidden">
-      {/* Decorative corner ornaments */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.15, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="absolute top-8 left-4 w-24 h-24"
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
-          <path d="M0,0 L50,0 L50,10 L10,10 L10,50 L0,50 Z" fill="currentColor" />
-          <path d="M20,20 L30,10 L40,20 L30,30 Z" fill="currentColor" />
-        </svg>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.15, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="absolute top-8 right-4 w-24 h-24 scale-x-[-1]"
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
-          <path d="M0,0 L50,0 L50,10 L10,10 L10,50 L0,50 Z" fill="currentColor" />
-          <path d="M20,20 L30,10 L40,20 L30,30 Z" fill="currentColor" />
-        </svg>
-      </motion.div>
+    <section ref={containerRef} className="relative py-1 px-4 bg-gradient-to-b from-white via-secondary/20 to-white overflow-hidden">
+      
 
       <motion.div
         ref={ref}
@@ -100,7 +76,7 @@ export default function LocationSection() {
           className="text-primary/80 text-sm md:text-base tracking-wide leading-relaxed mb-8" 
           style={{ fontFamily: 'var(--font-serif)' }}
         >
-          {["АЛМАТЫ ҚАЛАСЫ,", "ҚАБАНБАЙ БАТЫР КӨШЕСІ", "«GRAND HALL»", "МЕЙРАМХАНАСЫ"].map((line, i) => (
+          {["АҚТӨБЕ ҚАЛАСЫ,", "ӘЛ-ФАРАБИ КӨШЕСІ, 36", "«DARIGA»", "МЕЙРАМХАНАСЫ"].map((line, i) => (
             <motion.p
               key={i}
               initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
@@ -152,9 +128,9 @@ export default function LocationSection() {
           className="flex justify-center mt-12"
         >
           <img
-            src="https://grizly.club/uploads/posts/2022-12/1671768734_grizly-club-p-kazakhskii-zheltii-ornament-26.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEkhZVogfBangF5iBj1a707JSYMZPrGS3p8A&s"
             alt="ornament"
-            className="w-28 opacity-60"
+            className="w-20 opacity-60"
           />
         </motion.div>
       </motion.div>
