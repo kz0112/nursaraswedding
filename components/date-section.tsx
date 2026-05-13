@@ -287,6 +287,34 @@ export default function DateSection() {
       </motion.div>
 
     </motion.div>
+    {/* running gold line */}
+<div className="absolute top-0 left-0 w-full overflow-hidden z-30">
+  <div className="h-[35px] bg-[#d4b06a] flex items-center whitespace-nowrap">
+    
+    <motion.div
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{
+        duration: 90,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+      className="flex whitespace-nowrap"
+    >
+      {Array(8).fill(
+        " NURSARA • QYZ UZATU • QYZ UZATU • "
+      ).map((text, i) => (
+        <span
+          key={i}
+          className="text-[#6f3f3f] text-sm tracking-[0.35em] uppercase px-4"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          {text}
+        </span>
+      ))}
+    </motion.div>
+
+  </div>
+</div>
   </section>
 )
 }

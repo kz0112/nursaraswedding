@@ -150,6 +150,8 @@ export default function InvitationSection() {
           />
         </motion.div>
       </motion.div>
+      
     </section>
+    
   )
 }
