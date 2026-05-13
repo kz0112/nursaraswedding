@@ -59,7 +59,7 @@ export default function Home() {
         ref={audioRef}
         loop
         preload="auto"
-        src="/music/wedding-song.mp3"
+        src="audio.mp3"
       />
 
       {/* Kazakh-styled music button */}
