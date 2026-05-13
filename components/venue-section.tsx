@@ -30,6 +30,34 @@ export default function VenueSection() {
 
   return (
     <section ref={ref} className="relative py-20 px-4 bg-gradient-to-b from-white via-secondary/30 to-white overflow-hidden">
+      {/* running gold line */}
+<div className="absolute top-0 left-0 w-full overflow-hidden z-30">
+  <div className="h-[35px] bg-[#d4b06a] flex items-center whitespace-nowrap">
+    
+    <motion.div
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{
+        duration: 90,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+      className="flex whitespace-nowrap"
+    >
+      {Array(8).fill(
+        " NURSARA • QYZ UZATU • QYZ UZATU • "
+      ).map((text, i) => (
+        <span
+          key={i}
+          className="text-[#6f3f3f] text-sm tracking-[0.35em] uppercase px-4"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          {text}
+        </span>
+      ))}
+    </motion.div>
+
+  </div>
+</div>
       {/* Decorative corner ornaments */}
       <div className="absolute top-8 left-4 w-20 h-20 opacity-20">
         <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
@@ -100,22 +128,7 @@ export default function VenueSection() {
             <div className="absolute inset-2 border border-white/20 rounded-xl pointer-events-none" />
           </div>
           
-          {/* Image navigation dots */}
-          <div className="flex justify-center gap-3 mt-4">
-            {venueImages.map((_, index) => (
-              <motion.button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  index === activeIndex 
-                    ? "bg-gold w-6" 
-                    : "bg-gold/30 hover:bg-gold/50"
-                }`}
-              />
-            ))}
-          </div>
+          
         </motion.div>
 
         {/* Thumbnail gallery */}

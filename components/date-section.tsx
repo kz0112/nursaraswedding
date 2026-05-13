@@ -18,7 +18,7 @@ export default function DateSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.5, 1, 1, 0.5])
 
  return (
-  <section ref={containerRef} className="relative py-52 px-4 overflow-hidden">
+  <section ref={containerRef} className="relative py-20 px-4 overflow-hidden">
 
     {/* Parallax background */}
     <motion.div 

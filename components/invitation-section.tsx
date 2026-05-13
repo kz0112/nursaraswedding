@@ -74,88 +74,59 @@ export default function InvitationSection() {
         className="relative z-10 max-w-md mx-auto text-center"
       >
         {/* Greeting with word-by-word animation */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-primary/80 text-sm md:text-base tracking-wide leading-relaxed mb-6"
-          style={{ fontFamily: 'var(--font-serif)' }}
-        >
-          {["ҚҰРМЕТТІ", "АТА-АНА,", "АҒА-ІНІ,", "АПА-СІҢЛІ,"].map((word, i) => (
-            <motion.span key={i} variants={wordVariants} className="inline-block mr-1.5">
-              {word}
-            </motion.span>
-          ))}
-          <br />
-          {["ЖИЕН,", "БӨЛЕЛЕР,", "ДОС-ЖАРАН,", "ӘРІПТЕСТЕР,"].map((word, i) => (
-            <motion.span key={i} variants={wordVariants} className="inline-block mr-1.5">
-              {word}
-            </motion.span>
-          ))}
-          <br />
-          <motion.span variants={wordVariants} className="inline-block">КӨРШІЛЕР!</motion.span>
-        </motion.div>
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  animate={isInView ? "visible" : "hidden"}
+  className="text-primary/80 text-sm md:text-base tracking-wide leading-relaxed mb-6"
+  style={{ fontFamily: 'var(--font-serif)' }}
+>
+  {["ҚҰРМЕТТІ", "АҒАЙЫНДАР,", "БАУЫРЛАР,"].map((word, i) => (
+    <motion.span key={i} variants={wordVariants} className="inline-block mr-1.5">
+      {word}
+    </motion.span>
+  ))}
 
-        {/* Main invitation text with animation */}
-        <motion.p 
-          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-primary/80 text-sm md:text-base tracking-wide mb-4" 
-          style={{ fontFamily: 'var(--font-serif)' }}
-        >
-          СІЗДЕРДІ АЯУЛЫ ҚЫЗЫМЫЗ
-        </motion.p>
+  <br />
 
-        {/* Bride name with special animation */}
-        <motion.h2
-          initial={{ opacity: 0, scale: 0.5, y: 50 }}
-          animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
-          transition={{ 
-            duration: 1.2, 
-            delay: 0.8,
-            ease: [0.22, 1, 0.36, 1]
-          }}
-          className="text-5xl md:text-6xl text-primary my-6 relative"
-          style={{ fontFamily: 'var(--font-script)' }}
-        >
-          <motion.span
-            animate={{ 
-              textShadow: [
-                "0 0 0px rgba(201, 169, 98, 0)",
-                "0 0 20px rgba(201, 169, 98, 0.5)",
-                "0 0 0px rgba(201, 169, 98, 0)"
-              ]
-            }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            Нұрсарамыз
-          </motion.span>
-        </motion.h2>
+  {["ӘРІПТЕСТЕР,", "КӨРШІЛЕР,", "ДОСТАР!"].map((word, i) => (
+    <motion.span key={i} variants={wordVariants} className="inline-block mr-1.5">
+      {word}
+    </motion.span>
+  ))}
+</motion.div>
 
-        {/* Invitation body with staggered animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="text-primary/80 text-sm md:text-base tracking-wide leading-relaxed" 
-          style={{ fontFamily: 'var(--font-serif)' }}
-        >
-          <motion.p
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.2 }}
-          >
-            ҰЗАТЫЛАТЫН АҚ ДАСТАРХАНЫМЫЗДЫҢ
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            ҚАДІРЛІ ҚОНАҒЫ БОЛУҒА ШАҚЫРАМЫЗ!
-          </motion.p>
-        </motion.div>
+       {/* Main invitation text */}
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}
+  transition={{ duration: 0.8, delay: 0.6 }}
+  className="text-center"
+>
+  <motion.h2
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+    transition={{ duration: 1, delay: 0.8 }}
+    className="text-5xl md:text-6xl text-primary mb-6"
+    style={{ fontFamily: 'var(--font-script)' }}
+  >
+    Нұрсараның
+  </motion.h2>
+
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    animate={isInView ? { opacity: 1, y: 0 } : {}}
+    transition={{ duration: 0.8, delay: 1 }}
+    className="text-primary/80 text-sm md:text-base tracking-wide leading-relaxed"
+    style={{ fontFamily: 'var(--font-serif)' }}
+  >
+    ҰЗАТЫЛУ ТОЙЫНА АРНАЛҒАН
+    <br />
+    ДАСТАРХАНЫМЫЗДЫҢ
+    <br />
+    ҚАДІРЛІ ҚОНАҒЫ БОЛЫҢЫЗДАР!
+  </motion.p>
+</motion.div>
 
         {/* Decorative divider with animation */}
         <motion.div 
@@ -175,7 +146,7 @@ export default function InvitationSection() {
             transition={{ duration: 4, repeat: Infinity }}
             src="https://i.ibb.co.com/zh88YY2Y/i-removebg-preview-2.png"
             alt="ornament"
-            className="w-48 opacity-80"
+            className="w-33 opacity-80"
           />
         </motion.div>
       </motion.div>
