@@ -42,7 +42,12 @@ export default function TimelineSection() {
 
       {/* Title */}
       <motion.div
-        
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-12"
+      >
         <h2 
           className="text-4xl md:text-5xl text-primary mb-4"
           style={{ fontFamily: 'var(--font-script)' }}
