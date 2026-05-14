@@ -88,7 +88,7 @@ export default function HeroSection() {
     duration: 1.6,
     ease: [0.22, 1, 0.36, 1],
   }}
-  className="relative flex flex-col items-center justify-center mt-40"
+  className="relative flex flex-col items-center justify-center mt-57"
 >
   {/* soft thin cinematic glow */}
   <motion.div

@@ -30,34 +30,35 @@ export default function VenueSection() {
 
   return (
     <section ref={ref} className="relative py-20 px-4 bg-gradient-to-b from-white via-secondary/30 to-white overflow-hidden">
-      {/* running gold line */}
-<div className="absolute top-0 left-0 w-full overflow-hidden z-30">
-  <div className="h-[35px] bg-[#d4b06a] flex items-center whitespace-nowrap">
-    
-    <motion.div
-      animate={{ x: ["0%", "-50%"] }}
-      transition={{
-        duration: 90,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-      className="flex whitespace-nowrap"
-    >
-      {Array(8).fill(
-        " NURSARA • QYZ UZATU • QYZ UZATU • "
-      ).map((text, i) => (
-        <span
-          key={i}
-          className="text-[#6f3f3f] text-sm tracking-[0.35em] uppercase px-4"
-          style={{ fontFamily: "var(--font-serif)" }}
-        >
-          {text}
-        </span>
-      ))}
-    </motion.div>
+       {/* Running line */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden z-30">
+        <div className="h-[28px] bg-[#d4b06a] flex items-center whitespace-nowrap">
 
-  </div>
-</div>
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              duration: 90,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="flex whitespace-nowrap"
+          >
+            {Array(8).fill(
+              " NURSARA • QYZ UZATU • "
+            ).map((text, i) => (
+              <span
+                key={i}
+                className="text-[#6f3f3f] text-[10px] tracking-[0.35em] uppercase px-4"
+                style={{ fontFamily: "var(--font-serif)" }}
+              >
+                {text}
+              </span>
+            ))}
+          </motion.div>
+
+        </div>
+      </div>
+
       {/* Decorative corner ornaments */}
       <div className="absolute top-8 left-4 w-20 h-20 opacity-20">
         <svg viewBox="0 0 100 100" className="w-full h-full text-gold">
