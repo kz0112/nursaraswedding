@@ -160,12 +160,13 @@ export default function HeroSection() {
         delay: 0.8,
       }}
       className="
-        text-xl
-        md:text-2xl
+        text-2xl
+        md:text-4xl
         tracking-[0.35em]
         uppercase
         text-white/90
         font-light
+        mt-4
         drop-shadow-[0_0_12px_rgba(255,255,255,0.35)]
       "
       style={{
