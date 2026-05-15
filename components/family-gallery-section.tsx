@@ -1,12 +1,13 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useRef, useState, useEffect } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const familyPhotos = [
   {
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-15%20at%2008.48.48-LZtDYYJDu287GDZNZlFkam1AvhJoTB.jpeg",
-    alt: "Отбасылық сурет киіз үйде",
+    alt: "Отбасылык сурет",
   },
   {
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-05-15%20at%2008.48.48%20%281%29-E3OFLz6Z49vITvY1MjXpntgqWc8V43.jpeg",
@@ -19,166 +20,125 @@ const familyPhotos = [
 ]
 
 export default function FamilyGallerySection() {
-  const containerRef = useRef(null)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-  
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Auto-play carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1)
+      setCurrentIndex((prev) => (prev + 1) % familyPhotos.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const goToPrevious = () => {
+    setDirection(-1)
+    setCurrentIndex((prev) => (prev - 1 + familyPhotos.length) % familyPhotos.length)
+  }
+
+  const goToNext = () => {
+    setDirection(1)
+    setCurrentIndex((prev) => (prev + 1) % familyPhotos.length)
+  }
+
+  const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 1 : -1)
+    setCurrentIndex(index)
+  }
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
+  }
 
   return (
     <section 
       ref={containerRef} 
-      className="relative py-20 px-4 bg-gradient-to-b from-white via-secondary/10 to-white overflow-hidden"
+      className="relative py-16 px-4 bg-white overflow-hidden"
     >
-      {/* Background ornament */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
-          <svg viewBox="0 0 400 400" className="w-full h-full text-primary">
-            <pattern id="galleryPattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-              <path d="M40 0 L80 40 L40 80 L0 40 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
-              <circle cx="40" cy="40" r="8" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            </pattern>
-            <rect width="400" height="400" fill="url(#galleryPattern)" />
-          </svg>
-        </div>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 max-w-md mx-auto"
+      >
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Main Image */}
+          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-xl bg-secondary/20">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.img
+                key={currentIndex}
+                src={familyPhotos[currentIndex].src}
+                alt={familyPhotos[currentIndex].alt}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.3 },
+                  scale: { duration: 0.3 },
+                }}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </AnimatePresence>
 
-      <motion.div style={{ opacity }} className="relative z-10 max-w-5xl mx-auto">
-        {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.h2 
-            className="text-4xl md:text-5xl text-primary mb-4"
-            style={{ fontFamily: 'var(--font-script)' }}
-          >
-            Отбасымыз
-          </motion.h2>
-          <div className="flex items-center justify-center gap-3">
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="h-px bg-gold/50"
-            />
-            <motion.div 
-              initial={{ scale: 0, rotate: -45 }}
-              whileInView={{ scale: 1, rotate: 45 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="w-2 h-2 bg-gold/70"
-            />
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="h-px bg-gold/50"
-            />
+            {/* Gradient overlay at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
           </div>
-        </motion.div>
 
-        {/* Photo Gallery - Elegant Masonry Style */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {familyPhotos.map((photo, index) => (
-            <motion.div
+          {/* Navigation Arrows */}
+          <button
+            onClick={goToPrevious}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary/70 hover:text-primary hover:bg-white transition-all duration-200"
+            aria-label="Алдыңғы сурет"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary/70 hover:text-primary hover:bg-white transition-all duration-200"
+            aria-label="Келесі сурет"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-2 mt-6">
+          {familyPhotos.map((_, index) => (
+            <button
               key={index}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.2,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={`relative group cursor-pointer ${
-                index === 0 ? 'md:row-span-2' : ''
+              onClick={() => goToSlide(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex 
+                  ? 'w-8 h-2 bg-gold' 
+                  : 'w-2 h-2 bg-gold/30 hover:bg-gold/50'
               }`}
-            >
-              {/* Decorative frame corners */}
-              <div className="absolute -inset-2 z-0">
-                <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-gold/40 transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:border-gold/70" />
-                <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-gold/40 transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:border-gold/70" />
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-gold/40 transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:border-gold/70" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-gold/40 transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:border-gold/70" />
-              </div>
-
-              {/* Image container */}
-              <div className={`relative overflow-hidden rounded-lg shadow-lg ${
-                index === 0 ? 'aspect-[3/4]' : 'aspect-square'
-              }`}>
-                {/* Glow effect on hover */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-gradient-to-t from-gold/20 via-transparent to-transparent z-10 pointer-events-none"
-                />
-
-                {/* Image */}
-                <motion.img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover transition-transform duration-700"
-                  style={{
-                    transform: hoveredIndex === index ? 'scale(1.05)' : 'scale(1)'
-                  }}
-                />
-
-                {/* Elegant overlay on hover */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-20 pointer-events-none"
-                />
-              </div>
-
-              {/* Floating sparkle effect */}
-              {hoveredIndex === index && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  className="absolute -top-1 -right-1 w-4 h-4 z-30"
-                >
-                  <svg viewBox="0 0 24 24" className="w-full h-full text-gold">
-                    <path 
-                      fill="currentColor" 
-                      d="M12 0L14 10L24 12L14 14L12 24L10 14L0 12L10 10Z"
-                    />
-                  </svg>
-                </motion.div>
-              )}
-            </motion.div>
+              aria-label={`${index + 1}-сурет`}
+            />
           ))}
         </div>
-
-        {/* Bottom ornament */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex justify-center mt-12"
-        >
-          <img
-            src="https://i.ibb.co.com/zh88YY2Y/i-removebg-preview-2.png"
-            alt="ornament"
-            className="w-32 opacity-40"
-          />
-        </motion.div>
       </motion.div>
     </section>
   )
