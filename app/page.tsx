@@ -75,8 +75,9 @@ export default function Home() {
       <LocationSection />
       <ParentsSection />
       <CountdownSection />
-      <FamilyGallerySection />
+      
       <FooterSection />
+      <FamilyGallerySection />
     </main>
   )
 }

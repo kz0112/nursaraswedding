@@ -11,7 +11,7 @@ export default function FooterSection() {
   return (
     <footer
       ref={ref}
-      className="relative overflow-hidden py-20 px-4 bg-gradient-to-b from-white to-secondary/20"
+      className="relative overflow-hidden py-20 px-4 bg-gradient-to-b  bg-white"
     >
       {/* Animated soft glow */}
       <motion.div 
