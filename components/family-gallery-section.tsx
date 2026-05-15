@@ -70,76 +70,113 @@ export default function FamilyGallerySection() {
 
   return (
     <section 
-      ref={containerRef} 
-      className="relative py-16 px-4 bg-white overflow-hidden"
+  ref={containerRef} 
+  className="relative h-screen w-full overflow-hidden bg-black"
+>
+  {/* Fullscreen carousel */}
+  <div className="relative w-full h-full">
+
+    <AnimatePresence initial={false} custom={direction} mode="wait">
+      <motion.img
+        key={currentIndex}
+        src={familyPhotos[currentIndex].src}
+        alt={familyPhotos[currentIndex].alt}
+        custom={direction}
+        variants={{
+          enter: (direction: number) => ({
+            x: direction > 0 ? "100%" : "-100%",
+            opacity: 1,
+          }),
+          center: {
+            x: 0,
+            opacity: 1,
+          },
+          exit: (direction: number) => ({
+            x: direction < 0 ? "100%" : "-100%",
+            opacity: 1,
+          }),
+        }}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{
+          x: {
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          },
+        }}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    </AnimatePresence>
+
+    {/* dark cinematic overlay */}
+    <div className="absolute inset-0 bg-black/15 z-10" />
+
+    {/* left arrow */}
+    <button
+      onClick={goToPrevious}
+      className="
+        absolute
+        left-4
+        top-1/2
+        -translate-y-1/2
+        z-20
+
+        w-10
+        h-10
+
+        rounded-full
+        bg-white/80
+        backdrop-blur-sm
+
+        flex
+        items-center
+        justify-center
+      "
     >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-md mx-auto"
-      >
-        {/* Carousel Container */}
-        <div className="relative">
-          {/* Main Image */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-xl bg-secondary/20">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.img
-                key={currentIndex}
-                src={familyPhotos[currentIndex].src}
-                alt={familyPhotos[currentIndex].alt}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.3 },
-                  scale: { duration: 0.3 },
-                }}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </AnimatePresence>
+      <ChevronLeft size={20} className="text-black/70" />
+    </button>
 
-            {/* Gradient overlay at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
-          </div>
+    {/* right arrow */}
+    <button
+      onClick={goToNext}
+      className="
+        absolute
+        right-4
+        top-1/2
+        -translate-y-1/2
+        z-20
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary/70 hover:text-primary hover:bg-white transition-all duration-200"
-            aria-label="Алдыңғы сурет"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary/70 hover:text-primary hover:bg-white transition-all duration-200"
-            aria-label="Келесі сурет"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
+        w-10
+        h-10
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center gap-2 mt-6">
-          {familyPhotos.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex 
-                  ? 'w-8 h-2 bg-gold' 
-                  : 'w-2 h-2 bg-gold/30 hover:bg-gold/50'
-              }`}
-              aria-label={`${index + 1}-сурет`}
-            />
-          ))}
-        </div>
-      </motion.div>
-    </section>
+        rounded-full
+        bg-white/80
+        backdrop-blur-sm
+
+        flex
+        items-center
+        justify-center
+      "
+    >
+      <ChevronRight size={20} className="text-black/70" />
+    </button>
+
+    {/* dots */}
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {familyPhotos.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => goToSlide(index)}
+          className={`rounded-full transition-all duration-300 ${
+            index === currentIndex
+              ? "w-8 h-2 bg-white"
+              : "w-2 h-2 bg-white/40"
+          }`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
   )
 }
