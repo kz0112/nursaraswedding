@@ -9,6 +9,7 @@ import TimelineSection from "@/components/timeline-section"
 import LocationSection from "@/components/location-section"
 import ParentsSection from "@/components/parents-section"
 import CountdownSection from "@/components/countdown-section"
+import FamilyGallerySection from "@/components/family-gallery-section"
 import FooterSection from "@/components/footer-section"
 import MusicButton from "@/components/music-button"
 
@@ -74,6 +75,7 @@ export default function Home() {
       <LocationSection />
       <ParentsSection />
       <CountdownSection />
+      <FamilyGallerySection />
       <FooterSection />
     </main>
   )
